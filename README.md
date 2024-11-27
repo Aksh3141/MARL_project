@@ -34,7 +34,7 @@ The results below compare the baseline model, greedy pruning, random pruning, an
 | **Baseline**       | 1.17   | 81.63        | 0.81     |
 | **Greedy Pruning** | 0.56   | 55.12        | 0.55     |
 | **Random Pruning** | 0.56   | 68.38        | 0.68     |
-| **MARL Pruning**   | 0.65   | 77.54        | 0.77     |
+| **MARL Pruning**   | 0.65   | 74.54        | 0.74     |
 
 The MARL-based approach achieves a significant reduction in computational cost with minimal impact on accuracy and F1 score, outperforming greedy and random pruning techniques.
 
