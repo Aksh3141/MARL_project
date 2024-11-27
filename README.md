@@ -23,6 +23,7 @@ Both agents collaborate to determine the tokens to keep, ensuring the pruning al
     - Simulates the token pruning process and evaluates the agents' decisions using classification accuracy and deviation from the desired prune ratio.
 3. **Training**:
     - Agents are optimized using PPO with a reward system encouraging efficient token selection.
+  
 
 ## Results
 
