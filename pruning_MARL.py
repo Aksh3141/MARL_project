@@ -2,10 +2,8 @@ from google.colab import drive
 drive.mount('/content/drive')
 import os
 
-# Define a directory on Google Drive for saving checkpoints
-checkpoint_path = '/content/drive/MyDrive/rdl_project'  # Change to your desired path
+checkpoint_path = '/content/drive/MyDrive/rdl_project'  
 os.makedirs(checkpoint_path, exist_ok=True)
-# Install required libraries if not already installed
 !pip install torch torchvision timm tqdm
 
 import torch
@@ -109,7 +107,7 @@ class MultiAgentTokenPruningEnv:
 
     def step(self, actions_attention, actions_similarity, is_eval=False):
         for i in range(self.batch_size):
-            combined_actions = actions_attention[i] & actions_similarity[i]      # replaced and with or
+            combined_actions = actions_attention[i] | actions_similarity[i]      # replaced and with or
             selected_indices = (combined_actions == 1).nonzero(as_tuple=False).squeeze(1)
 
             if 0 not in selected_indices:
@@ -164,7 +162,7 @@ class MultiAgentTokenPruningEnv:
         desired_num_tokens = int(self.num_tokens * (1 - self.target_prune_ratio))
         predictions = torch.argmax(outputs, dim=1)
         correct = (predictions == self.labels).float()
-        beta = 10
+        beta = 1
         #     # Determine reward based on the number of selected tokens
         if num_tokens_selected <= desired_num_tokens:
           rewards[i] = beta * correct[i] / desired_num_tokens
@@ -234,7 +232,7 @@ class MultiAgentTokenPruningEnv:
         # Compute rewards by dividing classification loss by similarity priorities
         # Add a small epsilon to similarity priorities to prevent division by zero
         epsilon = 1e-6
-        alpha = 10
+        alpha = 1
         rewards = alpha *correct / (similarity_priorities + epsilon)
         #print("Accuracy :", len(correct[correct == 1])/len(correct))
         #print("Reward :", rewards.mean())
